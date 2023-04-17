@@ -1,0 +1,34 @@
+<div class="block block-dashboard-addresses">
+    <div class="block-title">
+        <strong>History</strong>
+    </div>
+            <table class="data table table-order-items history" id="my-orders-table">
+                <caption class="table-caption">Orders</caption>
+                <thead>
+                <tr>
+                    <th scope="col" class="col date">Date</th>
+                    <th scope="col" class="col id">Code</th>
+                    <th scope="col" class="col total">Amount</th>
+                    <th scope="col" class="col actions">Action</th>
+                </tr>
+                </thead>
+
+                <?php
+                /**
+                 * @var \Mageplaza\GiftCard\Block\Customer\History $block
+                 */
+                $data = $block->getHistoryCollection();
+                foreach ($data as $key => $history) {
+                    echo '<tbody>
+                <tr>
+                    <td data-th="Date" class="col date">'.date_format(date_create($history->getActionTime()),"Y/m/d").'</td>
+                    <td data-th="Code" class="col id">'.$block->getCodeModel($history->getGiftcardId())->getCode().'</td>
+                    <td data-th="Amount" class="col total">'.$block->getCurrency($history->getAmount()).'</td>
+                    <td data-th="Actions" class="col actions">'.$history->getAction().'</td>
+                    </tr>
+                </tbody>';
+                }
+                    ?>
+
+            </table>
+        </div>
